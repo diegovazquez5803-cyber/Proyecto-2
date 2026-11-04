@@ -43,8 +43,8 @@ Menú:
 
 ```csv
 Origen,Destino,Peso
-UAG,UP,4.9
-UAG,TEC,6.3
+A,B,4.9
+A,C,6.3
 ```
 
 - Las conexiones son **bidireccionales**.
@@ -55,20 +55,32 @@ UAG,TEC,6.3
   faltantes) se **omiten con un aviso** sin detener el programa. Si falta el
   archivo o los encabezados, se avisa y el grafo queda vacío.
 
-### Nodos de ejemplo
+### Red de ejemplo
 
-El `nodos.csv` original (catálogo de universidades) se convirtió al formato
-de aristas. Los pesos son **distancias aproximadas en km en línea recta**,
-calculadas con coordenadas estimadas; sirven como datos de demostración y
-pueden reemplazarse por distancias reales.
+El `nodos.csv` incluido define una red de 5 nodos (`A` a `E`):
 
-| Nodo | Institución                                  |
-|------|----------------------------------------------|
-| UAG  | Universidad Autónoma de Guadalajara          |
-| UP   | Universidad Panamericana, Campus Guadalajara |
-| UDG  | Universidad de Guadalajara                   |
-| TEC  | Tecnológico de Monterrey, Campus Guadalajara |
-| UTEG | Centro Universitario UTEG                    |
+```csv
+Origen,Destino,Peso
+A,B,4.9
+A,C,6.3
+B,C,4.3
+A,D,6.4
+D,E,4.3
+B,D,8.7
+E,D,6.6
+```
+
+Como las conexiones son bidireccionales, la fila `E,D,6.6` **reemplaza** el
+peso de `D,E,4.3` (gana la última fila), por lo que la conexión `D <-> E`
+queda con peso `6.6`.
+
+Rutas esperadas con esta red:
+
+| Inicio | Destino | Peso total | Recorrido        |
+|--------|---------|------------|------------------|
+| A      | E       | 13         | `A -> D -> E`    |
+| B      | E       | 15.3       | `B -> D -> E`    |
+| C      | E       | 19.3       | `C -> A -> D -> E` |
 
 ## Calidad de código
 
